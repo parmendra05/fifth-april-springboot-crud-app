@@ -1,5 +1,7 @@
 package com.pack.controller;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,7 +21,7 @@ public class BookController {
 	private BookService service;
 	
 	@PostMapping("/save")
-	public Book saveBook(@RequestBody Book book) {
+	public Book saveBook(@Valid @RequestBody Book book) {
 			
 		Book bookObject=service.saveBook(book);
 		return bookObject;

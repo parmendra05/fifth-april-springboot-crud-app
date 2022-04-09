@@ -2,13 +2,23 @@ package com.pack.entity;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.validation.constraints.NotEmpty;
 
 @Entity
 public class Book {
 	@Id
 private Integer id;
+	
+	
+@NotEmpty(message = "Name field can't be empty")
 private String name;
+	
+	
+@NotEmpty(message = "Author field can't be empty")
 private String author;
+
+
+@NotEmpty(message = "Price field can't be empty")
 private String price;
 
 public Book() {
