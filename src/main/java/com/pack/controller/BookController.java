@@ -3,6 +3,8 @@ package com.pack.controller;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -21,30 +23,29 @@ public class BookController {
 	private BookService service;
 	
 	@PostMapping("/save")
-	public Book saveBook(@Valid @RequestBody Book book) {
+	public ResponseEntity<Book> saveBook(@Valid @RequestBody Book book) {
 			
 		Book bookObject=service.saveBook(book);
-		return bookObject;
+		
+		return new ResponseEntity<>(bookObject,HttpStatus.CREATED);
 	}
 	@GetMapping("/get/{id}")
-	public Book getBook(@PathVariable ("id") Integer id) {
-	
-		
-		Book bookObject=service.getBook(id);
-		return bookObject;
+	public ResponseEntity<Book> getBook(@PathVariable ("id") Integer id) {
+	Book bookObject=service.getBook(id);
+		return new ResponseEntity<>(bookObject,HttpStatus.OK);
 	}
 	
 	@DeleteMapping("/delete/{id}")
-	public String DeltBook(@PathVariable ("id") Integer id) {
+	public ResponseEntity<String> DeltBook(@PathVariable ("id") Integer id) {
 		service.deleteBook(id);
-		
-		return "Data Deleted";
+		String msg="Data Deleted";
+		return new ResponseEntity<String>(msg,HttpStatus.OK);
 	}
 	
 	@PutMapping("/update")
-	public Book updateBook(@RequestBody Book book) {
+	public ResponseEntity<Book> updateBook(@RequestBody Book book) {
 			
 		Book bookObject=service.saveBook(book);
-		return bookObject;
+		return new ResponseEntity<>(bookObject,HttpStatus.OK);
 	}
 }
